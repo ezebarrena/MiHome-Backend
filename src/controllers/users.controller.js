@@ -10,9 +10,9 @@ class UsersController {
         return instance;
     }
 
-    async getUsuarios(req, res) {
+    async getUser(req, res) {
         try {
-          const users = await UsersService.getUsers();
+          const users = await UsersService.getUser();
           return res.status(200).json({
             message: "Todos los usuarios",
             users: users,
@@ -21,7 +21,7 @@ class UsersController {
         } catch (err) {
           console.error(err);
           return res.status(500).json({
-            method: "getUsers",
+            method: "getUser",
             message: err,
           });
         }
@@ -45,6 +45,7 @@ class UsersController {
             });
           }
     }
+
 }
 
 module.exports = UsersController.getInstance();

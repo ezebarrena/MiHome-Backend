@@ -1,15 +1,20 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
+const RealEstateSchema = new Schema({
     fantasyName:String,
     logInEmail:String,
     contactEmail:String,
     password:String,
     assets:[{type: mongoose.Schema.ObjectId, ref: 'Assets'}],
+    rates: [{Number}],
+    reviews:[{
+        date: Number,
+        comment: String
+    }]
 
 });
 
-const User = mongoose.model('User',UserSchema);
+const RealEstate = mongoose.model('RealEstate',RealEstateSchema);
 
-module.exports = User;
+module.exports = RealEstate;

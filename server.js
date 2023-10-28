@@ -15,6 +15,8 @@ dbConnection();
 const PORT = 8080;
 
 app.use("/", require('./src/routes/users.routes'));
+app.use("/", require('./src/routes/realEstates.routes'));
+app.use("/", require('./src/routes/assets.routes'));
 
 app.listen(PORT, () => {
   console.log('Server running on port ' + PORT);

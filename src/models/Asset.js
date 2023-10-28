@@ -31,8 +31,8 @@ const AssetSchema = new mongoose.Schema({
     geoLocalization:String,
     frontBack:String,
 
-    State:String, //chequear esto
-    assets:[{type: mongoose.Schema.ObjectId, ref: 'RealEstate'}],
+    status:String, //chequear esto
+    realEstateName:{type: mongoose.Schema.ObjectId, ref: 'RealEstate'},
 });
 
 const Asset = mongoose.model('Asset',AssetSchema);

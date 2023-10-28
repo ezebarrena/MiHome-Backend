@@ -10,9 +10,9 @@ class RealEstateController {
         return instance;
     }
 
-    async getRealEstates(req, res) {
+    async getRealEstate(req, res) {
         try {
-            const realEstates = await RealEstateService.getRealEstates()
+            const realEstates = await RealEstateService.getRealEstate()
             return res.status(200).json({
                 message: "Todas las inmobiliarias",
                 realEstates: realEstates,
@@ -21,15 +21,15 @@ class RealEstateController {
         }catch (err) {
             console.error(err);
             return res.status(500).json({
-            method: "getRealEstates",
+            method: "getRealEstate",
             message: err,
         });
         }
     }
 
-    async postRealEstate(req, res) {
+    async createRealEstate(req, res) {
         try {
-            let newRealEstate = await RealEstateService.createRealEstate(req.body)
+            let newRealEstate = await RealEstateService.postRealEstate(req.body)
             
             return res.status(201).json({
                 message: "Inmobiliaria creada!",
@@ -73,6 +73,28 @@ class RealEstateController {
             });
           }
     }
+    
+    async deleteRealEstate(req, res){
+      const logInEmail = req.params.logInEmail;
+      try {
+        await RealEstateService.deleteRealEstate(logInEmail);
+
+        return res.status(200).json({
+            message: "Real Estate deleted correclty",
+            status: 200,
+        });
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            method: "deleteRealEstate",
+            message: "Server error",
+            status: 500,
+        });
+    }
+    }
+
+  
+
 }
 
 module.exports = RealEstateController.getInstance();

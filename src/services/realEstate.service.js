@@ -1,8 +1,9 @@
 const RealEstatesModel = require('../models/RealEstate');
+const User = require('../models/User');
 
 class RealEstatesService {
 
-    async getRealEstates() {
+    async getRealEstate() {
         try {
             const realEstates = await RealEstatesModel.find()
             return realEstates
@@ -25,6 +26,16 @@ class RealEstatesService {
         }catch (err) {
             console.error(err);
             throw new Error("Error in createRealEstate Service");
+        }
+    }
+
+    async deleteRealEstate(realEstate) {
+        try {
+            await RealEstatesModel.deleteOne(realEstate)
+            return realEstate;
+        }catch (err) {
+            console.error(err);
+            throw new Error("Error in deleteRealEstate Service");
         }
     }
 

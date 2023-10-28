@@ -1,18 +1,18 @@
 let instance = null;
 require('dotenv').config();
-const UsersService = require("../services/asset.service");
+const AssetService = require("../services/asset.service");
 
 class AssetController {
     static getInstance() {
         if (!instance) {
-            return new UsersController();
+            return new AssetController();
         }
         return instance;
     }
 
     async getAsset(req, res) {
         try {
-          const asset = await AssetService.getAsset();
+          const asset = await AssetService.getAssets();
           return res.status(200).json({
             message: "all asset bringed",
             asset: asset,
@@ -29,25 +29,25 @@ class AssetController {
 
     async postAsset (req, res){
         try {
-            let newAsset = await UsersService.postAsset(req.body);
+            let newAsset = await AssetService.postAsset(req.body);
       
             return res.status(200).json({
               message: "Asset published correctly!",
-              usuario: newAsset,
+              asset: newAsset,
               status: 201
             });
           } catch (err) {
             console.error(err);
             return res.status(409).json({
               method: "postAsset",
-              message: "Asset already existse",
+              message: "Asset already exists",
               status: 500
             });
           }
     }
 
     async deleteAsset(req, res) {
-        const assetId = req.params.id; 
+        const assetId = req.params.id; //object id? posible cambio
 
         try {
             await AssetService.deleteAsset(assetId);
@@ -67,11 +67,11 @@ class AssetController {
     }
 
     async putAsset(req, res) {
-        const assetId = req.params.id; // Obtén el ID del activo de los parámetros de la solicitud
+        const assetId = req.params.title; // Obtén el ID del activo de los parámetros de la solicitud
         const updatedData = req.body; // Datos actualizados del activo
 
         try {           
-            const updatedAsset = await AssetService.updateAsset(assetId, updatedData);
+            const updatedAsset = await AssetService.updateAsset(title, updatedData);
 
             if (!updatedAsset) {
                 return res.status(404).json({
