@@ -1,6 +1,7 @@
 let instance = null
 require('dotenv').config()
 const RealEstateService = require('../services/realEstate.service')
+const AuthService = require('../services/auth.service')
 
 class RealEstateController {
     static getInstance() {

@@ -26,7 +26,26 @@ class AssetController {
           });
         }
     }
-
+    
+    async getMyREAsset(req, res) {
+        try {
+          const realEstateID = req.params.realEstateName;
+          const state = req.body.state;
+          console.log("estoy en el controlador " + state)
+          const asset = await AssetService.getMyREAssets(realEstateID, state);
+          return res.status(200).json({
+            message: "your RE assets bringed",
+            asset: asset,
+            status: 200,
+          });
+        } catch (err) {
+          console.error(err);
+          return res.status(500).json({
+            method: "getMyREAsset",
+            message: "Server error",
+          });
+        }
+    }
     async postAsset (req, res){
         try {
             let newAsset = await AssetService.postAsset(req.body);
