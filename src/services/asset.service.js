@@ -25,7 +25,7 @@ class AssetService{
             if (state !== ""){
                 console.log("entramos al if")
                 console.log(state)
-                const assets = await AssetModel.find({"state": state});
+                const assets = await AssetModel.find({"realEstateName": ObjectId(realEstateID),"state": state});
                 console.log(assets)
                 return assets; 
             }else {
