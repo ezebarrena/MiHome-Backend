@@ -22,6 +22,7 @@ class AssetService{
     async getMyREAssets(realEstateID, state) {
         try {
             console.log("antes del if")
+            const { ObjectId } = require('mongoose').Types;
             if (state !== ""){
                 console.log("entramos al if")
                 console.log(state)
