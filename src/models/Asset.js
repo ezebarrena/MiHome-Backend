@@ -12,7 +12,7 @@ const AssetSchema = new mongoose.Schema({
     coin:String,
     bills:Number,
     description:String,
-    amenities:[{String}],
+    amenities:[String],
     room:Number,
     floor:Number,
     bath:Number,
