@@ -1,5 +1,8 @@
 const AssetModel = require('../models/Asset');
+//const ObjID = require('mongodb/lib/mongodb/bson/bson').ObjectID
 
+const mongoose = require('mongoose');
+const ObjectId = require('mongodb').ObjectId;
 class AssetService{
 
     //LO USARIAMOS PARA LA BUSQUEDA AVANZADA
@@ -16,21 +19,20 @@ class AssetService{
     //GET NEAR ASSETS PARA QUE ME FILTRE SEGUN GEOLOCALIZACION
 
     //GET FAV ASSETS PARA QUE ME TRAIGA MIS FAVS
+    //TODO: Cuando hagamos la parte de usuario
     
     //GET MY RE ASSETS, QUE PUEDA FILTRAR POR STATUS
 
     async getMyREAssets(realEstateID, state) {
         try {
-            console.log("antes del if")
-            const { ObjectId } = require('mongoose').Types;
+            
             if (state !== ""){
-                console.log("entramos al if")
-                console.log(state)
-                const assets = await AssetModel.find({"realEstateName": ObjectId(realEstateID),"state": state});
+
+                const assets = await AssetModel.find({"realEstateName": new mongoose.Types.ObjectId(realEstateID), "state": state});
                 console.log(assets)
                 return assets; 
             }else {
-                const assets = await AssetModel.find({realEstateName: ObjectId('{realEstateID}')});
+                const assets = await AssetModel.find({"realEstateName": new mongoose.Types.ObjectId(realEstateID)});
                 return assets;
             }
             

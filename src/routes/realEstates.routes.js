@@ -5,6 +5,8 @@ const router = Router();
 
 //rutas autenticacion
 router.post("/auths", realEstateController.createRealEstate); //autenticacion
+router.post("/auths/login", realEstateController.loginAsRE); //autenticacion
+
 router.post("/passwordRecoveries", realEstateController.createRealEstate); //recupero de password
 router.post("/resetPassword", realEstateController.createRealEstate); //cambio de password
 router.post("/realEstate/me", realEstateController.createRealEstate); 
@@ -14,6 +16,7 @@ router.get("/realEstate/me", realEstateController.getRealEstate);
 router.post("/realEstate/me", realEstateController.createRealEstate);
 //router.put("/realEstate/me", realEstateController.putRealEstate);
 router.delete("/realEstate/me", realEstateController.deleteRealEstate);
+
 
 //traer todas las Real Estate
 //router.get("/realEstate", realEstateController.getRealEstate);
