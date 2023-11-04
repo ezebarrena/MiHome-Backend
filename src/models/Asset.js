@@ -31,7 +31,7 @@ const AssetSchema = new mongoose.Schema({
     geoLocalization:String,
     frontBack:String,
 
-    state:Number, //1 True disponible - 0 False No disponible
+    state:Number, //1 True disponible - 0 False No disponible - 2 pausada
     realEstateName:{type: mongoose.Schema.ObjectId, ref: 'RealEstate'},
 });
 
