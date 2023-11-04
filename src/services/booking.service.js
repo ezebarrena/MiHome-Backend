@@ -2,7 +2,7 @@ const BookingModel = require('../models/Booking');
 
 class BookingService{
 
-    async getBooking(req,res){
+    async getBooking(){
         try {
             const booking = await BookingModel.find();
             return booking;
@@ -12,7 +12,7 @@ class BookingService{
         }
     }
 
-    async postBooking(req,res){
+    async postBooking(booking){
         try {
             await BookingModel.create(booking);
             return booking;

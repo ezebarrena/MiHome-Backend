@@ -27,7 +27,7 @@ class BookingController {
         }
     }
 
-    async postBooking (req, res){
+    async createBooking (req, res){
         try {
             let newBooking = await BookingService.postBooking(req.body);
       
