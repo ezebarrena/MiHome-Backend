@@ -23,12 +23,12 @@ class AssetService{
     
     //GET MY RE ASSETS, QUE PUEDA FILTRAR POR STATUS
 
-    async getMyREAssets(realEstateID, state) {
+    async getMyREAssets(realEstateID, state, transaction) {
         try {
             
             if (state !== ""){
 
-                const assets = await AssetModel.find({"realEstateName": new mongoose.Types.ObjectId(realEstateID), "state": state});
+                const assets = await AssetModel.find({"realEstateName": new mongoose.Types.ObjectId(realEstateID), "state": state, "transaction":transaction});
                 console.log(assets)
                 return assets; 
             }else {
