@@ -29,8 +29,8 @@ class AssetController {
 
     async getAssetById(req, res) {
       try {
-        const realEstateID = req.body.realEstateName;
-        const asset = await AssetService.getAssetById(realEstateID);
+        const AssetID = req.body._id;
+        const asset = await AssetService.getAssetById(AssetID);
         return res.status(200).json({
           message: "asset by Id bringed",
           asset: asset,

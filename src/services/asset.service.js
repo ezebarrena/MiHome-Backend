@@ -42,16 +42,16 @@ class AssetService{
     }
 
     //GET ASSET POR ID 
-    async getAssetById(realEstateID) {
+    async getAssetById(id) {
         try {
             
-            if (realEstateID !== ""){
+            if (id !== ""){
 
-                const assets = await AssetModel.find({"realEstateName": new mongoose.Types.ObjectId(realEstateID)});
+                const assets = await AssetModel.find({"Asset id": new mongoose.Types.ObjectId(id)});
                 console.log(assets)
                 return assets; 
             }else {
-                const assets = await AssetModel.find({"realEstateName": new mongoose.Types.ObjectId(realEstateID)});
+                const assets = await AssetModel.find({"Asset id": new mongoose.Types.ObjectId(id)});
                 return assets;
             }
             
@@ -60,7 +60,7 @@ class AssetService{
             throw new Error("Error in getAssetById Service");
           }
     }
-    
+
 
     async postAsset(asset) {
         try {
