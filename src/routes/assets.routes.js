@@ -8,5 +8,6 @@ router.get("/assets", assetController.getAsset)
 router.post("/myREassets", assetController.getMyREAsset)
 router.put("/assets", assetController.putAsset)
 router.delete("/assets", assetController.deleteAsset)
+router.post("/idAssets", assetController.getAssetById)
 
 module.exports = router;

@@ -22,7 +22,6 @@ class AssetService{
     //TODO: Cuando hagamos la parte de usuario
     
     //GET MY RE ASSETS, QUE PUEDA FILTRAR POR STATUS
-
     async getMyREAssets(realEstateID, state, transaction) {
         try {
             
@@ -41,7 +40,28 @@ class AssetService{
             throw new Error("Error in getMyREAssets Service");
           }
     }
-        
+
+    //GET ASSET POR ID 
+    async getAssetById(realEstateID) {
+        try {
+            
+            if (realEstateID !== ""){
+
+                const assets = await AssetModel.find({"realEstateName": new mongoose.Types.ObjectId(realEstateID)});
+                console.log(assets)
+                return assets; 
+            }else {
+                const assets = await AssetModel.find({"realEstateName": new mongoose.Types.ObjectId(realEstateID)});
+                return assets;
+            }
+            
+          } catch (err) {
+            console.error(err);
+            throw new Error("Error in getAssetById Service");
+          }
+    }
+    
+
     async postAsset(asset) {
         try {
           

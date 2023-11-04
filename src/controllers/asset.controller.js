@@ -26,7 +26,25 @@ class AssetController {
           });
         }
     }
-    
+
+    async getAssetById(req, res) {
+      try {
+        const realEstateID = req.body.realEstateName;
+        const asset = await AssetService.getAssetById(realEstateID);
+        return res.status(200).json({
+          message: "asset by Id bringed",
+          asset: asset,
+          status: 200,
+        });
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+          method: "getAssetById",
+          message: "Server error",
+        });
+      }
+  }
+  
     async getMyREAsset(req, res) {
         try {
           const realEstateID = req.body.realEstateName;
