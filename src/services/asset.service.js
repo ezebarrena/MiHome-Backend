@@ -47,11 +47,11 @@ class AssetService{
             
             if (id !== ""){
 
-                const assets = await AssetModel.find({"Asset id": new mongoose.Types.ObjectId(id)});
+                const assets = await AssetModel.find({"_id": new mongoose.Types.ObjectId(id)});
                 console.log(assets)
                 return assets; 
             }else {
-                const assets = await AssetModel.find({"Asset id": new mongoose.Types.ObjectId(id)});
+                const assets = await AssetModel.find({"_id": new mongoose.Types.ObjectId(id)});
                 return assets;
             }
             
