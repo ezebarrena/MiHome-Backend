@@ -30,6 +30,23 @@ class RealEstateController {
         }
     }
 
+    async getRealEstate(req, res) {
+      try {
+          const reID = req.body._id;
+          const realEstate = await RealEstateService.getReByID(reID)
+          return res.status(200).json({
+              message: "Traigo inmobiliaria",
+              realEstates: realEstate,
+              status: 200,
+            });
+      }catch (err) {
+          console.error(err);
+          return res.status(500).json({
+          method: "getRealEstate",
+          message: err,
+      });
+      }
+  }
     async createRealEstate(req, res) {
         try {
             let newRealEstate = await RealEstateService.postRealEstate(req.body)
