@@ -102,40 +102,21 @@ class RealEstateController {
     }
 
     //chequear esto
-    async requestPasswordRecovery(logInEmail) {
-      // Generar un token único y establecer la fecha de vencimiento
-      const token = generateUniqueToken();
-      const expirationDate = new Date();
-      expirationDate.setHours(expirationDate.getHours() + 1); // Expira en 1 hora
-  
-      // Almacena el token en la base de datos
-      await PasswordRecoveryModel.create({ logInEmail, token, expirationDate });
-  
-      // Envía el token al usuario (por correo electrónico, por ejemplo)
-      sendRecoveryTokenByEmail(logInEmail, token);
+    async passwordRecover (req, res){
+      try {
+        const { error } = validate(req.body);
+        if (error) return res.status(400).send(error.details[0].message);
+
+        const user = await new User(req.body).save();
+
+        res.send(user);
+      } catch (error) {
+        res.send("An error occured");
+        console.log(error);
+    }
     }
   
-    async verifyPasswordRecoveryToken(logInEmail, token) {
-      // Verifica si el token es válido y no ha caducado
-      const recoveryData = await PasswordRecoveryModel.findOne({ logInEmail, token });
-      if (!recoveryData || recoveryData.expirationDate < new Date()) {
-        throw new Error("Invalid or expired recovery token");
-      }
-    }
-  
-    async resetPassword(logInEmail, newPassword) {
-      // Realiza el cambio de contraseña
-      // Asegúrate de que el usuario está verificado antes de realizar el cambio
-      await verifyPasswordRecoveryToken(logInEmail, token);
-  
-      // Cambia la contraseña del usuario
-      const hashedPassword = bcrypt.hashSync(newPassword, process.env.SALT);
-      await RealEstatesModel.updateOne({ logInEmail }, { password: hashedPassword });
-  
-      // Elimina el registro de recuperación de contraseña
-      await PasswordRecoveryModel.deleteOne({ logInEmail });
-    }
-  
+
 
 }
 
