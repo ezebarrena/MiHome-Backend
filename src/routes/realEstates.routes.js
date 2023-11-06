@@ -12,7 +12,7 @@ router.post("/resetPassword", realEstateController.createRealEstate); //cambio d
 router.post("/realEstate/me", realEstateController.createRealEstate); 
  
 //Usuario de Real Estate
-router.get("/realEstate/me", realEstateController.getReByID);
+router.get("/realEstate/me", realEstateController.createRealEstate);
 router.post("/realEstate/id", realEstateController.getReByID);
 router.post("/realEstate/me", realEstateController.createRealEstate);
 //router.put("/realEstate/me", realEstateController.putRealEstate);
