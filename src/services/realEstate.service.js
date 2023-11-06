@@ -23,6 +23,15 @@ class RealEstatesService {
             throw new Error("Error in getReByEmail Service");
           }
     }
+    async getReByID (id){
+        try {
+            let realEstate = await RealEstatesModel.findOne({id});
+            return realEstate;
+          } catch (err) {
+            console.error(err);
+            throw new Error("Error in getReByEmail Service");
+          }
+    }
 
     async postRealEstate(realEstate) {
         try {
