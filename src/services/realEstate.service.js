@@ -1,7 +1,8 @@
 const RealEstatesModel = require('../models/RealEstate');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-
+const mongoose = require('mongoose');
+const ObjectId = require('mongodb').ObjectId;
 class RealEstatesService {
 
     async getRealEstate() {
@@ -24,12 +25,14 @@ class RealEstatesService {
           }
     }
     async getReByID (id){
+        console.log(id)
         try {
-            let realEstate = await RealEstatesModel.findOne({id});
+            let realEstate = await RealEstatesModel.findOne({"_id": new mongoose.Types.ObjectId(id)});
+            console.log(realEstate)
             return realEstate;
           } catch (err) {
             console.error(err);
-            throw new Error("Error in getReByEmail Service");
+            throw new Error("Error in getReByID Service");
           }
     }
 
