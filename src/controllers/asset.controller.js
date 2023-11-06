@@ -78,7 +78,7 @@ class AssetController {
             console.error(err);
             return res.status(409).json({
               method: "postAsset",
-              message: "Asset already exists",
+              message: err,
               status: 500
             });
           }
