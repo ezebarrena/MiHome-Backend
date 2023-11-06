@@ -84,10 +84,34 @@ class RealEstatesService {
         }
     }
 
-//Validamos token con el llega y con el que esta guardado
+//Validamos token con el llega y con el que esta guardado y blanquea contraseña
+    async validateToken(token){
+        try{
+            const realEstate = await RealEstatesModel.findOne({token: token});
+            if (realEstate){
+                await RealEstatesModel.updateOne({token: realEstate.token}, {$set: {password: 0}})
+                await RealEstatesModel.updateOne({token: realEstate.token}, {$set: {token: 0}})
 
+            }
+        }catch (err) {
+            console.error(err);
+            throw new Error("Error in validateToken Service");
+        }
+    }
 
+    async renewPassword(logInEmail, password){
+        try{
+            const realEstate = await RealEstatesModel.findOne({logInEmail: logInEmail});
+            if (realEstate){
+                await RealEstatesModel.updateOne({logInEmail: realEstate.logInEmail}, {$set: {password: password}})
+                
 
+            }
+        }catch (err) {
+            console.error(err);
+            throw new Error("Error in validateToken Service");
+        }
+    }
 }
 
 module.exports = new RealEstatesService();

@@ -139,7 +139,43 @@ class RealEstateController {
         });
     }
     }
-   
+
+    async validateCode (req, res){
+      const token = req.body.token;
+      try {
+        await RealEstateService.validateToken()
+        return res.status(200).json({
+          message: "token is correct",
+          status: 200,
+      });
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            method: "validateCode",
+            message: "Server error",
+            status: 500,
+        });
+    }
+    }
+  
+    async renewPassword (req, res) {
+      const email = req.body.email;
+      const password = req.body.password;
+      try {
+        await RealEstateService.renewPassword(email, password)
+        return res.status(200).json({
+          message: "password renewed",
+          status: 200,
+      });
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            method: "validateCode",
+            message: "Server error",
+            status: 500,
+        });
+    }
+    }
 }
 
 module.exports = RealEstateController.getInstance();
