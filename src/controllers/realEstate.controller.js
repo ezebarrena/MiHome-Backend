@@ -30,7 +30,7 @@ class RealEstateController {
         }
     }
 
-    async getRealEstate(req, res) {
+    async getReByID(req, res) {
       try {
           const reID = req.body._id;
           const realEstate = await RealEstateService.getReByID(reID)
