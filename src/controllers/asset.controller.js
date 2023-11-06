@@ -85,7 +85,7 @@ class AssetController {
     }
 
     async deleteAsset(req, res) {
-        const assetId = req.params.id; //object id? posible cambio
+        const assetId = req.body.id; //object id? posible cambio
 
         try {
             await AssetService.deleteAsset(assetId);
