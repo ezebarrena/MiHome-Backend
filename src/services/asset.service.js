@@ -89,7 +89,7 @@ class AssetService{
     async deleteAsset(asset) {
         try {
           
-            await AssetModel.deleteOne(asset);
+            await AssetModel.deleteOne({ _id: asset });
             return user;
         
         } catch (err) {
