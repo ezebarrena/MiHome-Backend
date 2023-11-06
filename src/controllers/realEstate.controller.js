@@ -73,7 +73,7 @@ class RealEstateController {
             if (isReRegistered) {
       
               const realEstate = await RealEstateService.getReByEmail(logInEmail);
-
+              const id = realEstate._id
               const token = jwt.sign(realEstate.toJSON(), process.env.PRIVATE_KEY, {
                 expiresIn: "1d",
               });
@@ -81,6 +81,7 @@ class RealEstateController {
               return res.status(200).json({
                 status: 200,
                 token,
+                id,
                 message: "Login successful"
               });
       
