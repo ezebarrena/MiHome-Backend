@@ -121,7 +121,24 @@ class RealEstateController {
     }
 
     //chequear esto
-    
+    async sendCode (req, res){
+      const email = req.body.email;
+      console.log("controlador" + email);
+      try {
+        await RealEstateService.sendEmailCode(email)
+        return res.status(200).json({
+          message: "code sent correclty",
+          status: 200,
+      });
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            method: "sendCode",
+            message: "Server error",
+            status: 500,
+        });
+    }
+    }
    
 }
 

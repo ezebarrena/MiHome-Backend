@@ -90,7 +90,7 @@ class AssetService{
         try {
           
             await AssetModel.deleteOne({ _id: asset });
-            return user;
+            return asset;
         
         } catch (err) {
             console.error(err);

@@ -11,7 +11,8 @@ const RealEstateSchema = new Schema({
     reviews:[{
         date: Number,
         comment: String
-    }]
+    }],
+    token: Number,
 
 });
 

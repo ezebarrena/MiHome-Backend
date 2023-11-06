@@ -3,6 +3,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const ObjectId = require('mongodb').ObjectId;
+const sendPasswordResetEmail = require ('../utils/sendEmail')
 class RealEstatesService {
 
     async getRealEstate() {
@@ -67,6 +68,23 @@ class RealEstatesService {
             throw new Error("Error in deleteRealEstate Service");
         }
     }
+//Enviamos mail con codigo y lo guardamos en el model
+    async sendEmailCode(email){
+        try{
+            console.log(email);
+            const realEstate = await RealEstatesModel.findOne({logInEmail: email})
+            console.log(realEstate);
+            if (realEstate) {
+                const codigo = await sendPasswordResetEmail(realEstate.logInEmail)
+                await RealEstatesModel.updateOne({logInEmail: realEstate.logInEmail}, {$set: {token: codigo}})
+            }
+        }catch (err) {
+            console.error(err);
+            throw new Error("Error in deleteRealEstate Service");
+        }
+    }
+
+//Validamos token con el llega y con el que esta guardado
 
 
 

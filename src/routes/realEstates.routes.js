@@ -8,7 +8,7 @@ router.post("/auths", realEstateController.createRealEstate); //autenticacion
 router.post("/auths/login", realEstateController.loginAsRE); //autenticacion
 
 //router.post("/passwordRecoveries", realEstateController.passwordRecover); //recupero de password
-router.post("/resetPassword", realEstateController.createRealEstate); //cambio de password
+router.post("/resetPassword", realEstateController.sendCode); //cambio de password
 router.post("/realEstate/me", realEstateController.createRealEstate); 
  
 //Usuario de Real Estate
