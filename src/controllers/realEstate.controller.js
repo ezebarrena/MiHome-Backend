@@ -143,7 +143,7 @@ class RealEstateController {
     async validateCode (req, res){
       const token = req.body.token;
       try {
-        await RealEstateService.validateToken()
+        await RealEstateService.validateToken(token)
         return res.status(200).json({
           message: "token is correct",
           status: 200,
@@ -152,7 +152,7 @@ class RealEstateController {
         console.error(err);
         return res.status(500).json({
             method: "validateCode",
-            message: "Server error",
+            message: "Token incorrecto",
             status: 500,
         });
     }

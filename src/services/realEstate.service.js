@@ -89,9 +89,11 @@ class RealEstatesService {
         try{
             const realEstate = await RealEstatesModel.findOne({token: token});
             if (realEstate){
-                await RealEstatesModel.updateOne({token: realEstate.token}, {$set: {password: 0}})
+                
                 await RealEstatesModel.updateOne({token: realEstate.token}, {$set: {token: 0}})
 
+            } else {
+                throw new Error ("token incorrect");
             }
         }catch (err) {
             console.error(err);
@@ -103,7 +105,8 @@ class RealEstatesService {
         try{
             const realEstate = await RealEstatesModel.findOne({logInEmail: logInEmail});
             if (realEstate){
-                await RealEstatesModel.updateOne({logInEmail: realEstate.logInEmail}, {$set: {password: password}})
+                let newPass = bcrypt.hashSync(password,process.env.SALT);
+                await RealEstatesModel.updateOne({logInEmail: realEstate.logInEmail}, {$set: {password: newPass}})
                 
 
             }
