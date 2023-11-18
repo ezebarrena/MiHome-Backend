@@ -97,7 +97,12 @@ class AssetService{
             throw new Error("Error in deleteAsset Service");
         }
     }
+    async filterAssets(operation, assetType, location, coin, rooms, minPrice, maxPrice, dorms, baths, garage, terrainSize, amenities, year){
+        try {
 
+            await AssetModel.find()
+        }
+    }
 }
 
 module.exports = new AssetService();
