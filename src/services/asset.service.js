@@ -97,10 +97,33 @@ class AssetService{
             throw new Error("Error in deleteAsset Service");
         }
     }
-    async filterAssets(operation, assetType, location, coin, rooms, minPrice, maxPrice, dorms, baths, garage, terrainSize, amenities, year){
+    //BUSQUEDA AVANZADA
+    async filterAssets(transaction, assetType, coin, nRooms, minPrice, maxPrice, nBedrooms, nBaths, nGarage, mTotal, amenities, year){
+        //amenities se tiene que enviar un array, hay que ver como funca
         try {
 
-            await AssetModel.find()
+            await AssetModel.find({
+                transaction: transaction,
+                type: assetType,
+                coin: coin,
+                room: nRooms,
+                price: {
+                    $gte: minPrice,
+                    $lte: maxPrice,
+                },
+                bedrooms: nBedrooms,
+                baths: nBaths,
+                garage: nGarage,
+                antiquity: year,
+                mTotal: mTotal,
+                amenities: {
+                    $in: amenities
+                }
+
+            })
+        } catch (err) {
+            console.error(err);
+            throw new Error("Error in filterAssets Service");
         }
     }
 }

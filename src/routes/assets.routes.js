@@ -10,6 +10,7 @@ router.post("/myREassets", assetController.getMyREAsset)
 router.put("/assets", assetController.putAsset)
 router.delete("/assets", assetController.deleteAsset)
 router.post("/idAssets", assetController.getAssetById)
+router.post("/assets/filter", assetController.getFilteredAssets)
 
 router.post("/assets/bookings", bookingController.createBooking)
 

@@ -105,7 +105,7 @@ class AssetController {
     }
 
     async putAsset(req, res) {
-        const assetId = req.params.title; // Obtén el ID del activo de los parámetros de la solicitud
+        const title = req.params.title; // Obtén el ID del activo de los parámetros de la solicitud
         const updatedData = req.body; // Datos actualizados del activo
 
         try {           
@@ -132,6 +132,38 @@ class AssetController {
                 status: 500,
             });
         }
+    }
+
+    async getFilteredAssets (req, res) {
+      const transaction = req.body.transaction
+      const assetType = req.body.assetType
+      const coin = req.body.coin
+      const nRooms = req.body.nRooms
+      const minPrice = req.body.minPrice
+      const maxPrice = req.body.maxPrice
+      const nBedrooms = req.body.nBedrooms
+      const nBaths = req.body.nBaths
+      const nGarage = req.body.nGarage
+      const mTotal = req.body.mTotal
+      const amenities = req.body.amenities
+      const year = req.body.year
+
+      try {
+        await AssetService.filterAssets(transaction, assetType, coin, nRooms, minPrice, maxPrice, nBedrooms, nBaths, nGarage, mTotal, amenities, year)
+        return res.status(200).json({
+          message: "Asset updated correctly",
+          asset: updatedAsset,
+          status: 200,
+      });
+      } catch (err) {
+        console.error(err);
+            return res.status(500).json({
+                method: "getFilteredAssets",
+                message: "Server error",
+                status: 500,
+            });
+      }
+
     }
 
 }
