@@ -101,26 +101,36 @@ class AssetService{
     async filterAssets(transaction, assetType, coin, nRooms, minPrice, maxPrice, nBedrooms, nBaths, nGarage, mTotal, amenities, year){
         //amenities se tiene que enviar un array, hay que ver como funca
         try {
+            const query = {};
 
-            await AssetModel.find({
-                transaction: transaction,
-                type: assetType,
-                coin: coin,
-                room: nRooms,
-                price: {
-                    $gte: minPrice,
-                    $lte: maxPrice,
-                },
-                bedrooms: nBedrooms,
-                baths: nBaths,
-                garage: nGarage,
-                antiquity: year,
-                mTotal: mTotal,
-                amenities: {
-                    $in: amenities
-                }
+            if (transaction !== undefined) query.transaction = transaction;
+            
+            if (assetType !== undefined) query.type = assetType;
+            
+            if (coin !== undefined) query.coin = coin;
+            
+            if (nRooms !== undefined) query.room = nRooms;
+            
+            if (minPrice !== undefined || maxPrice !== undefined) {
+                query.price = {};
+                if (minPrice !== undefined) query.price.$gte = minPrice;
+                if (maxPrice !== undefined) query.price.$lte = maxPrice;
+            }
+            
+            if (nBedrooms !== undefined) query.bedrooms = nBedrooms;
+            
+            if (nBaths !== undefined) query.baths = nBaths;
+            
+            if (nGarage !== undefined) query.garage = nGarage;
+            
+            if (mTotal !== undefined) query.mTotal = mTotal;
+            
+            if (amenities !== undefined) query.amenities = { $in: amenities };
+            
+            if (year !== undefined) query.antiquity = year;
 
-            })
+            await AssetModel.find(
+                query, { ignoreUndefined: true })
         } catch (err) {
             console.error(err);
             throw new Error("Error in filterAssets Service");

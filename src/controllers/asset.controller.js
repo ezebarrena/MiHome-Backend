@@ -148,13 +148,15 @@ class AssetController {
       const amenities = req.body.amenities
       const year = req.body.year
 
+      console.log(transaction, assetType, coin, nRooms, minPrice)
       try {
-        await AssetService.filterAssets(transaction, assetType, coin, nRooms, minPrice, maxPrice, nBedrooms, nBaths, nGarage, mTotal, amenities, year)
+        const filteredAssets = await AssetService.filterAssets(transaction, assetType, coin, nRooms, minPrice, maxPrice, nBedrooms, nBaths, nGarage, mTotal, amenities, year)
+        console.log(filteredAssets)
         return res.status(200).json({
-          message: "Asset updated correctly",
-          asset: updatedAsset,
+          message: "Assets brought correctly",
+          assets: filteredAssets,
           status: 200,
-      });
+        });
       } catch (err) {
         console.error(err);
             return res.status(500).json({
