@@ -46,6 +46,29 @@ class UsersController {
           }
     }
 
+    async favAnAsset (req, res){
+      try {
+        console.log("entro al controlador");
+        const userId = req.body.userId;
+        const assetId = req.body.assetId
+        console.log(userId + "    " + assetId)
+        await UsersService.favAnAsset(userId, assetId);
+
+        return res.status(201).json({
+          message: "Faveado!",
+          
+          status: 201
+        });
+      } catch (err) {
+        console.error(err);
+            return res.status(500).json({
+              method: "fanAnAsset",
+              message: "No se pudo favear",
+              status: 500
+            });
+      }
+    }
+
 }
 
 module.exports = UsersController.getInstance();

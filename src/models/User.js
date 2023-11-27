@@ -6,6 +6,7 @@ const { Schema } = mongoose;
 const UserSchema = new Schema({
     name:String,
     email:String,
+    profilePicURL: String,
     paymentMethods:[{
         cardNumber:Number,
         email:String,

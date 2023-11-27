@@ -1,8 +1,10 @@
 const UsersModel = require('../models/User');
+const mongoose = require('mongoose');
+
 
 class UsersService{
 
-    async getUsers() {
+    async getUser() {
         try {
           const users = await UsersModel.find();
           return users;
@@ -12,7 +14,7 @@ class UsersService{
         }
       }
 
-      async postUser(user) {
+      async createUser(user) {
         try {
 
           let isUserRegistered = await UsersModel.findOne({email:user.email});
@@ -28,6 +30,19 @@ class UsersService{
           throw new Error("Error in createUser Service");
         }
       }
+
+      async favAnAsset(userId, assetId) {
+        try {
+          console.log("Entro al servicio")
+          await UsersModel.updateOne({_id: new mongoose.Types.ObjectId(userId)}, {$push: {favorites: new mongoose.Types.ObjectId(assetId)}})
+          console.log(userId + "   " + assetId)
+        } catch (err) {
+          console.error(err);
+            throw new Error("Error in favAnAsset Service");
+        }
+      }
+
+      
 }
 
 module.exports = new UsersService();

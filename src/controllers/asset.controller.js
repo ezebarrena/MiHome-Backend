@@ -50,7 +50,6 @@ class AssetController {
           const realEstateID = req.body.realEstateName;
           const state = req.body.state;
           const transaction = req.body.transaction;
-          console.log("estoy en el controlador " + realEstateID)
           const asset = await AssetService.getMyREAssets(realEstateID, state, transaction);
           return res.status(200).json({
             message: "your RE assets bringed",
