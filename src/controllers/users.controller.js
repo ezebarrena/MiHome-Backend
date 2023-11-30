@@ -46,6 +46,73 @@ class UsersController {
           }
     }
 
+    async favAnAsset (req, res){
+      try {
+        console.log("entro al controlador");
+        const userId = req.body.userId;
+        const assetId = req.body.assetId
+        console.log(userId + "    " + assetId)
+        await UsersService.favAnAsset(userId, assetId);
+
+        return res.status(201).json({
+          message: "Faveado!",
+          
+          status: 201
+        });
+      } catch (err) {
+        console.error(err);
+            return res.status(500).json({
+              method: "fanAnAsset",
+              message: "No se pudo favear",
+              status: 500
+            });
+      }
+    }
+
+    async unFavAnAsset (req, res){
+      try {
+        console.log("entro al controlador");
+        const userId = req.body.userId;
+        const assetId = req.body.assetId
+        console.log(userId + "    " + assetId)
+        await UsersService.unFavAnAsset(userId, assetId);
+
+        return res.status(201).json({
+          message: "Desfaveado!",
+          
+          status: 201
+        });
+      } catch (err) {
+        console.error(err);
+            return res.status(500).json({
+              method: "unFavAnAnAsset",
+              message: "No se pudo desfavear",
+              status: 500
+            });
+      }
+    }
+
+    async getMyFavouriteAssets (req, res){
+      try {
+        const userId = req.body.userId;
+
+        const favs = await UsersService.getMyFavoriteAssets(userId)
+        console.log(favs)
+        return res.status(201).json({
+          message: "todos los faveados!",
+          favorites: favs,
+          status: 201
+        });
+      } catch (err) {
+        console.error(err);
+            return res.status(500).json({
+              method: "getMyFavouriteAssets",
+              message: "No se pudo traer los faveados",
+              status: 500
+            });
+      }
+    }
+
 }
 
 module.exports = UsersController.getInstance();

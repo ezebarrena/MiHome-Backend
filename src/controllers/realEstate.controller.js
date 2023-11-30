@@ -102,9 +102,9 @@ class RealEstateController {
     }
     
     async deleteRealEstate(req, res){
-      const logInEmail = req.params.logInEmail;
+      const reId = req.body.reId;
       try {
-        await RealEstateService.deleteRealEstate(logInEmail);
+        await RealEstateService.deleteRealEstate(reId);
 
         return res.status(200).json({
             message: "Real Estate deleted correclty",

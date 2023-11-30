@@ -3,18 +3,16 @@ const realEstateController = require(("../controllers/realEstate.controller"))
 
 const router = Router();
 
-//rutas autenticacion
+//rutas autenticacion INICIO DE SESION Y LOGIN
 router.post("/auths", realEstateController.createRealEstate); //autenticacion
 router.post("/auths/login", realEstateController.loginAsRE); //autenticacion
 
+//RUTAS PARA RECUPERAR CONTRASEÑA
 //router.post("/passwordRecoveries", realEstateController.passwordRecover); //recupero de password
 router.post("/resetPassword", realEstateController.sendCode); //cambio de password
 router.post("/resetPassword/validate", realEstateController.validateCode);
 router.post("/resetPassword/renewPassword", realEstateController.renewPassword);
-router.post("/realEstate/me", realEstateController.createRealEstate); 
- 
-//Usuario de Real Estate
-router.get("/realEstate/me", realEstateController.createRealEstate);
+
 
 router.post("/realEstate/id", realEstateController.getReByID);
 
