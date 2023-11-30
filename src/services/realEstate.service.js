@@ -2,7 +2,7 @@ const RealEstatesModel = require('../models/RealEstate');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const ObjectId = require('mongodb').ObjectId;
+
 const sendPasswordResetEmail = require ('../utils/sendEmail')
 class RealEstatesService {
 
@@ -59,9 +59,9 @@ class RealEstatesService {
         }
     }
 
-    async deleteRealEstate(realEstate) {
+    async deleteRealEstate(reId) {
         try {
-            await RealEstatesModel.deleteOne(realEstate)
+            await RealEstatesModel.deleteOne({"_id": new mongoose.Types.ObjectId(reId)});
             return realEstate;
         }catch (err) {
             console.error(err);
