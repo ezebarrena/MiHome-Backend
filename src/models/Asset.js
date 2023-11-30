@@ -30,7 +30,7 @@ const AssetSchema = new mongoose.Schema({
     country:String,
     geoLocalization:String,
     frontBack:String,
-    orientation:String,
+    orientation:[String],
 
     state:Number, //1 True disponible - 0 False No disponible - 2 pausada
     realEstateName:{type: mongoose.Schema.ObjectId, ref: 'RealEstate'},
