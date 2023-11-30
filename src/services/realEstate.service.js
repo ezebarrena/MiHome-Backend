@@ -62,7 +62,7 @@ class RealEstatesService {
     async deleteRealEstate(reId) {
         try {
             await RealEstatesModel.deleteOne({"_id": new mongoose.Types.ObjectId(reId)});
-            return realEstate;
+            
         }catch (err) {
             console.error(err);
             throw new Error("Error in deleteRealEstate Service");
