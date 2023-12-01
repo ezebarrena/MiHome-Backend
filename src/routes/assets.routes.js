@@ -6,6 +6,7 @@ const router = Router()
 
 //Crear asset
 router.post("/assets", assetController.postAsset)
+router.post("/assets/uploadPic", assetController.uploadAssetPic)
 
 //me trae assets
 router.get("/assets", assetController.getAsset)

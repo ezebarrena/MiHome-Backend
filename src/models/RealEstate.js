@@ -13,6 +13,7 @@ const RealEstateSchema = new Schema({
         comment: String
     }],
     token: Number,
+    image:{imagePath: String}
 
 });
 
