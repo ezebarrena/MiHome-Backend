@@ -14,7 +14,7 @@ router.get("/assets", assetController.getAsset)
 router.post("/myREassets", assetController.getMyREAsset)
 
 //Edita los datos de un asset
-router.put("/assets", assetController.putAsset)
+router.put("/assets/:id", assetController.putAsset)
 
 //Eliminar una publicacion
 router.delete("/assets", assetController.deleteAsset)
