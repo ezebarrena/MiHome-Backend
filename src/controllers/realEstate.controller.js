@@ -176,6 +176,32 @@ class RealEstateController {
         });
     }
     }
+
+    async getRate(req, res){
+
+      try {
+        await RealEstateService.rateRE(email, password)
+        return res.status(200).json({
+          message: "password renewed",
+          status: 200,
+        })
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            method: "validateCode",
+            message: "Server error",
+            status: 500,
+        });
+      }
+    }
+
+    async postRate(req, res){
+      try {
+        
+      } catch (err) {
+
+      }
+    }
 }
 
 module.exports = RealEstateController.getInstance();

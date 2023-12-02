@@ -7,9 +7,8 @@ const RealEstateSchema = new Schema({
     contactEmail:String,
     password:String,
     assets:[{type: mongoose.Schema.ObjectId, ref: 'Assets'}],
-    rates: [{Number}],
     reviews:[{
-        date: Number,
+        rate: Number,
         comment: String
     }],
     token: Number,
