@@ -9,10 +9,8 @@ const UserSchema = new Schema({
     profilePicURL: String,
     paymentMethods:[{
         cardNumber:Number,
-        email:String,
         name:String,
-        entity:String,
-        expiration:Number,
+        expiration:String,
         ccv:Number,
         bank:String,
     }],
