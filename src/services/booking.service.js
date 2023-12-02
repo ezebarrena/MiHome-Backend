@@ -1,5 +1,6 @@
 const { default: mongoose } = require('mongoose');
 const BookingModel = require('../models/Booking');
+const AssetModel = require('../models/Asset');
 
 class BookingService{
 
@@ -13,9 +14,11 @@ class BookingService{
         }
     }
 
-    async postBooking(booking){
+    async postBooking(booking, assetId){
         try {
+            
             await BookingModel.create(booking);
+            await AssetModel.updateOne({_id: new mongoose.Types.ObjectId(assetId)}, {sate: 0})
             return booking;
         } catch (err) {
             console.error(err);
@@ -45,10 +48,11 @@ class BookingService{
         }
     }
 
-    async deleteBooking(bookingID){
+    async deleteBooking(bookingID, assetId){
         try {
             console.log(bookingID);
             await BookingModel.deleteOne({ "_id": new mongoose.Types.ObjectId(bookingID) })
+            await AssetModel.updateOne({_id: new mongoose.Types.ObjectId(assetId)}, {state: 1})
             return bookingID;
         
         } catch (err) {

@@ -1,6 +1,7 @@
 const { Router } = require ("express")
 const assetController = require("../controllers/asset.controller")
 const bookingController = require("../controllers/booking.controller")
+const visitsController = require("../controllers/visits.controller")
 
 const router = Router()
 
@@ -34,5 +35,11 @@ router.post("/assets/bookings/user", bookingController.getMyUserBookings)
 
 //Trae todas las reservas de una inmobiliaria
 router.post("/assets/bookings/realEstate", bookingController.getMyREBookings)
+
+
+//visitas
+router.post("/assets/scheduledVisits", visitsController.createVisit)
+router.delete("/assets/scheduledVisits", visitsController.deleteVisit)
+router.get("/assets/scheduledVisits", visitsController.getVisits)
 
 module.exports = router;

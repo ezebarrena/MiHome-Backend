@@ -30,7 +30,8 @@ class BookingController {
 
     async createBooking (req, res){
         try {
-            let newBooking = await BookingService.postBooking(req.body);
+            const assetId = req.body.asset
+            let newBooking = await BookingService.postBooking(req.body, assetId);
       
             return res.status(200).json({
               message: "Booked published correctly!",
@@ -90,10 +91,10 @@ class BookingController {
     }
 
     async deleteBooking (req, res) {
-      const bookingID = req.body.bookingID;
-
+      const bookingId = req.body.bookingId;
+      const assetId = req.body.assetId;
       try {
-        await BookingService.deleteBooking(bookingID)
+        await BookingService.deleteBooking(bookingId, assetId)
 
         return res.status(200).json({
           message: "Booking deleted correclty",

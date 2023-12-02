@@ -16,4 +16,6 @@ router.get("/users/me/favorite", usersController.getMyFavouriteAssets)
 //payment method
 router.post("/users/me/paymentmethod", usersController.addPaymentMethod) //agrega PM param: userId y paymetMethod
 router.delete("/users/me/paymentmethod", usersController.deletePaymentMethod) //elimina PM param: userId y paymetMethod
+
+
 module.exports = router;
