@@ -9,7 +9,8 @@ const RealEstateSchema = new Schema({
     assets:[{type: mongoose.Schema.ObjectId, ref: 'Assets'}],
     reviews:[{
         rate: Number,
-        comment: String
+        comment: String,
+        userId: {type: mongoose.Schema.ObjectId, ref: 'User'}
     }],
     token: Number,
     image:{imagePath: String}

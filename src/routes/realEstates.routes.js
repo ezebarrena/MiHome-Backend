@@ -22,7 +22,7 @@ router.post("/realEstate/id", realEstateController.getReByID);
 //router.get("/realEstate", realEstateController.getRealEstate);
 
 //valoracion de Real Estate
-router.get("/realEstate/rates", realEstateController.getRate);
-router.post("/realEstate/rates", realEstateController.postRate);
-
+router.post("/realEstate/reviews/me", realEstateController.getReviews);
+router.post("/realEstate/reviews", realEstateController.postReview);
+router.delete("/realEstate/reviews", realEstateController.deleteReview)
 module.exports = router;

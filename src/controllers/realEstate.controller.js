@@ -177,29 +177,67 @@ class RealEstateController {
     }
     }
 
-    async getRate(req, res){
-
+    async getReviews(req, res){
+      
+      const reId = req.body.reId
       try {
-        await RealEstateService.rateRE(email, password)
+        const reviews = await RealEstateService.getRealEstateReviews(reId)
         return res.status(200).json({
-          message: "password renewed",
+          message: "all the real estate reviews",
+          reviews: reviews,
           status: 200,
         })
       } catch (err) {
         console.error(err);
         return res.status(500).json({
-            method: "validateCode",
+            method: "getReviews",
             message: "Server error",
             status: 500,
         });
       }
     }
 
-    async postRate(req, res){
+    async postReview(req, res){
       try {
-        
-      } catch (err) {
+        const review = req.body.review;
+        const reId = req.body.reId
+        console.log(review);
+        await RealEstateService.postRealEstateReview(review, reId)
+        console.log("salgo del servicio");
 
+        return res.status(200).json({
+          message: "review sent",
+
+          status: 200,
+        })
+      } catch (err) {
+          console.error(err);
+          return res.status(500).json({
+            method: "postReview",
+            message: "Server error",
+            status: 500,
+        });
+      }
+    }
+
+    async deleteReview (req, res){
+      try {
+        const reviewId = req.body.reviewId;
+        const reId = req.body.reId
+
+        await RealEstateService.deleteReviewRealEstate(reId, reviewId)
+
+        return res.status(200).json({
+          message: "review deleted",
+          status: 200,
+        })
+      } catch (err) {
+          console.error(err);
+          return res.status(500).json({
+            method: "deleteReview",
+            message: "Server error",
+            status: 500,
+        });
       }
     }
 }
