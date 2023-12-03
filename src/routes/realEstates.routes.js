@@ -1,5 +1,6 @@
 const {Router} = require("express");
-const realEstateController = require(("../controllers/realEstate.controller"))
+const realEstateController = require("../controllers/realEstate.controller")
+const messageController = require ("../controllers/message.controller")
 
 const router = Router();
 
@@ -21,8 +22,12 @@ router.post("/realEstate/id", realEstateController.getReByID);
 //traer todas las Real Estate
 //router.get("/realEstate", realEstateController.getRealEstate);
 
-//valoracion de Real Estate
+//VALORACION DE UN RE
 router.post("/realEstate/reviews/me", realEstateController.getReviews);
 router.post("/realEstate/reviews", realEstateController.postReview);
 router.delete("/realEstate/reviews", realEstateController.deleteReview)
+
+//ENVIAR MENSAJES A UN RE
+router.post("/realEstate/message", messageController.sendMessage)
+
 module.exports = router;

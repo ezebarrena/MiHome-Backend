@@ -119,6 +119,8 @@ class RealEstatesService {
     async getRealEstateReviews (reId){
         try {
             const realEstate = await RealEstatesModel.findOne({_id: new mongoose.Types.ObjectId(reId)});
+            console.log(realEstate)
+            return realEstate
         } catch (err) {
             console.error(err);
             throw new Error("Error in validateToken Service");

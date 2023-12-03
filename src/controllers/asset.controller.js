@@ -228,4 +228,5 @@ function uploadToCloudinary(file) {
     });
   });
 }
+
 module.exports = AssetController.getInstance();
