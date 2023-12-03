@@ -115,6 +115,36 @@ class RealEstatesService {
             throw new Error("Error in validateToken Service");
         }
     }
+
+    async getRealEstateReviews (reId){
+        try {
+            const realEstate = await RealEstatesModel.findOne({_id: new mongoose.Types.ObjectId(reId)});
+        } catch (err) {
+            console.error(err);
+            throw new Error("Error in validateToken Service");
+        }
+    }
+
+    async postRealEstateReview(review, reId){
+        try {
+            console.log(review + " " + reId);
+            await RealEstatesModel.updateOne({_id: new mongoose.Types.ObjectId(reId)}, {$push: {reviews: review}})
+        }
+        catch (err) {
+            console.error(err);
+            throw new Error("Error in postRealEstateReview Service");
+        }
+    }
+    
+    async deleteReviewRealEstate(reId, reviewId){
+        try {
+            await RealEstatesModel.updateOne({_id: new mongoose.Types.ObjectId(reId)}, {$pull: {reviews: reviewId}})
+        }
+        catch (err) {
+            console.error(err);
+            throw new Error("Error in rateRealEstate Service");
+        }
+    }
 }
 
 module.exports = new RealEstatesService();

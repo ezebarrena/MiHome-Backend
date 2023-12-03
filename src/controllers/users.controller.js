@@ -48,10 +48,8 @@ class UsersController {
 
     async favAnAsset (req, res){
       try {
-        console.log("entro al controlador");
         const userId = req.body.userId;
         const assetId = req.body.assetId
-        console.log(userId + "    " + assetId)
         await UsersService.favAnAsset(userId, assetId);
 
         return res.status(201).json({
@@ -71,10 +69,8 @@ class UsersController {
 
     async unFavAnAsset (req, res){
       try {
-        console.log("entro al controlador");
         const userId = req.body.userId;
         const assetId = req.body.assetId
-        console.log(userId + "    " + assetId)
         await UsersService.unFavAnAsset(userId, assetId);
 
         return res.status(201).json({
@@ -113,6 +109,45 @@ class UsersController {
       }
     }
 
+    async addPaymentMethod (req, res) {
+      try {
+        const paymentMethod = req.body.paymentMethod;
+        const userId = req.body.userId
+        await UsersService.addPaymentMethod(userId, paymentMethod)
+        return res.status(201).json({
+          message: "payment method added!",
+          paymentMethod: paymentMethod,
+          status: 201
+        });
+      } catch (err) {
+        return res.status(500).json({
+          method: "addPaymentMethod",
+          message: "couldnt add payment method :(",
+          status: 500
+        });
+
+      }
+    }
+
+    async deletePaymentMethod (req, res) {
+      try {
+        const paymentMethod = req.body.paymentMethod;
+        const userId = req.body.userId
+        await UsersService.deletePaymentMethod(userId, paymentMethod)
+        return res.status(201).json({
+          message: "payment method deleted!",
+          
+          status: 201
+        });
+      } catch (err) {
+        return res.status(500).json({
+          method: "deletePaymentMethod",
+          message: "couldnt delete payment method :(",
+          status: 500
+        });
+
+      }
+    }
 }
 
 module.exports = UsersController.getInstance();

@@ -80,6 +80,23 @@ class UsersService{
         }
       }
       
+      async addPaymentMethod (userId, paymentMethod) {
+        try {
+          await UsersModel.updateOne({_id: new mongoose.Types.ObjectId(userId)}, {$push: {paymentMethods: paymentMethod}})
+        } catch (err) {
+          console.error(err);
+          throw new Error("Error in addPaymentMethod Service");
+        }
+      }
+
+      async deletePaymentMethod (userId, paymentMethod) {
+        try {
+          await UsersModel.updateOne({_id: new mongoose.Types.ObjectId(userId)}, {$pull: {paymentMethods: paymentMethod}})
+        } catch (err) {
+          console.error(err);
+          throw new Error("Error in deletePaymentMethod Service");
+        }
+      }
 }
 
 module.exports = new UsersService();

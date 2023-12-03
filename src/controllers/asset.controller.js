@@ -1,6 +1,15 @@
 let instance = null;
 require('dotenv').config();
 const AssetService = require("../services/asset.service");
+const {v2} =  require('cloudinary')
+require('dotenv').config();
+
+v2.config({ 
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.API_KEY, 
+  api_secret: process.env.API_SECRET,
+});
+
 
 class AssetController {
   static getInstance() {
@@ -168,6 +177,55 @@ class AssetController {
 
   }
 
+    async uploadAssetPic(req, res) {
+      try {
+
+        if (!req.files || !req.files.file) {
+          return res.status(400).json({ msg: "No file uploaded." });
+        }
+    
+        const file = req.files.file;
+    
+        await moveFileLocal(file);
+        const cloudinaryResponse = await uploadToCloudinary(file);
+    
+        return res.status(200).json(cloudinaryResponse)
+
+      } catch (err) {
+
+        console.log(err);
+        return res.status(500).send(err.message || "Internal Server Error");
+      }
+    }
+
+    
+
 }
 
+function moveFileLocal(file) {
+  const uploadPath = `../uploads`;
+  return new Promise((resolve, reject) => {
+    file.mv(`${uploadPath}${file.name}`, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+function uploadToCloudinary(file) {
+  const uploadPath = `../uploads`;
+
+  return new Promise((resolve, reject) => {
+    v2.uploader.upload(`${uploadPath}${file.name}`, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
 module.exports = AssetController.getInstance();

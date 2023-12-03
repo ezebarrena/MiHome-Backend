@@ -7,12 +7,13 @@ const RealEstateSchema = new Schema({
     contactEmail:String,
     password:String,
     assets:[{type: mongoose.Schema.ObjectId, ref: 'Assets'}],
-    rates: [{Number}],
     reviews:[{
-        date: Number,
-        comment: String
+        rate: Number,
+        comment: String,
+        userId: {type: mongoose.Schema.ObjectId, ref: 'User'}
     }],
     token: Number,
+    image:{imagePath: String}
 
 });
 
