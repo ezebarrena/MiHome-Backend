@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 
 const AssetSchema = new mongoose.Schema({
     title:String,
-    image:[{imagePath: String}], // Guarda la ruta de la imagen en el sistema de archivos
+    image:[String], // Guarda la ruta de la imagen en el sistema de archivos
     type:String,
     transaction:Number, //1 True Alquiler - O false Venta
     price:Number,
@@ -29,9 +29,10 @@ const AssetSchema = new mongoose.Schema({
     province:String,
     country:String,
     geoLocalization:String,
+    direction:String,
     frontBack:String,
     orientation:[String],
-    direction:String,
+    
 
     state:Number, //1 True disponible - 0 False No disponible - 2 pausada
     realEstateName:{type: mongoose.Schema.ObjectId, ref: 'RealEstate'},
