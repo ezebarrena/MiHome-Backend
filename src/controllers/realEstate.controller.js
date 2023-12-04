@@ -138,7 +138,7 @@ class RealEstateController {
         message: "Server error",
         status: 500,
       });
-
+    }}
     async getReviews(req, res){
       
       const reId = req.body.reId
@@ -159,7 +159,7 @@ class RealEstateController {
         });
       }
     }
-  }
+  
 
   async validateCode(req, res) {
     const token = req.body.token;
