@@ -48,6 +48,7 @@ class VisitsController {
 
     async getVisits (req, res){
         try {
+            
             const visit = await VisitsService.getVisits()
 
             return res.status(200).json({

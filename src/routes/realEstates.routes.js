@@ -8,6 +8,8 @@ const router = Router();
 router.post("/auths", realEstateController.createRealEstate); //autenticacion
 router.post("/auths/login", realEstateController.loginAsRE); //autenticacion
 router.delete("/realEstate/me", realEstateController.deleteRealEstate); //Eliminamos realEstate
+router.post("/realEstate/me/profilePic", realEstateController.uploadProfilePic)
+router.put("/realEstate/me", realEstateController.putRealEstate) //Actualiza datos RE
 
 //RUTAS PARA RECUPERAR CONTRASEÑA
 router.post("/resetPassword", realEstateController.sendCode); //solicita cambio y envia codigo

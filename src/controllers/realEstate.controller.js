@@ -5,6 +5,15 @@ const jwt = require("jsonwebtoken");
 const RealEstateService = require('../services/realEstate.service')
 const AuthService = require('../services/auth.service')
 
+const {v2} =  require('cloudinary');
+const realEstateService = require('../services/realEstate.service');
+
+v2.config({ 
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.API_KEY, 
+  api_secret: process.env.API_SECRET,
+});
+
 class RealEstateController {
   static getInstance() {
     if (!instance) {
@@ -261,6 +270,84 @@ class RealEstateController {
       });
     }
   }
+
+  async uploadProfilePic (req, res) {
+    try {
+
+      if (!req.files || !req.files.file) {
+        return res.status(400).json({ msg: "No file uploaded." });
+      }
+
+      const file = req.files.file;
+
+      await moveFileLocal(file);
+      const cloudinaryResponse = await uploadToCloudinary(file);
+    
+      return res.status(200).json(cloudinaryResponse)
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send(err.message || "Internal Server Error");
+    }
+  }
+
+  async putRealEstate (req, res) {
+    const idRealEstate = req.params.id;
+    const updatedData = req.body
+
+    try {
+      const updatedRealEstate = await realEstateService.updateRealEstate(idRealEstate, updatedData)
+
+      if (!updatedRealEstate) {
+        return res.status(404).json({
+          method: "putRealEstate",
+          message: "RealEstate not found",
+          status: 404,
+        });
+      }
+
+      return res.status(200).json({
+        message: "RealEstate updated correctly",
+        asset: updatedRealEstate,
+        status: 200,
+      });
+
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({
+        method: "putRealEstate",
+        message: "Server error",
+        status: 500,
+      });
+    }
+  }
+}
+
+function moveFileLocal(file) {
+  const uploadPath = `../uploads`;
+  return new Promise((resolve, reject) => {
+    file.mv(`${uploadPath}${file.name}`, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+function uploadToCloudinary(file) {
+  const uploadPath = `../uploads`;
+
+  return new Promise((resolve, reject) => {
+    v2.uploader.upload(`${uploadPath}${file.name}`, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
 }
 
 module.exports = RealEstateController.getInstance();

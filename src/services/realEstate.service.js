@@ -147,6 +147,20 @@ class RealEstatesService {
             throw new Error("Error in rateRealEstate Service");
         }
     }
+
+    async updateRealEstate(realEstateId, updatedData) {
+        try {
+            const updatedRealEstate = await RealEstatesModel.findOneAndUpdate(
+                { _id: assetId },
+                updatedData,
+                { new: true })
+            
+            return updatedRealEstate
+        } catch (err) {
+            console.error(err);
+            throw new Error("Error in updateAsset Service");
+        }
+    }
 }
 
 module.exports = new RealEstatesService();
