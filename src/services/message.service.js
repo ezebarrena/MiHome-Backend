@@ -12,10 +12,12 @@ class MessageService {
         try {
 
             console.log(message)
+            
             await MessageModel.create(message);
 
             const user = await UserModel.findOne({_id: new mongoose.Types.ObjectId(userId)})
             console.log(user.email)
+
             const re = await RealEstateModel.findOne({_id: new mongoose.Types.ObjectId(realEstateId)})
 
             console.log(re)
@@ -23,6 +25,7 @@ class MessageService {
             if (!reEmail) {
                 reEmail = re.logInEmail
             }
+            
             console.log("useremail:" + user.email + "   reEmail:" + reEmail)
 
             await sendMessageEmail(user.email, reEmail, subject, text)

@@ -19,12 +19,17 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendMessageEmail = async (contactEmail, userEmail, subject, text) => {
-    await transporter.sendMail({
+  try{  
+  await transporter.sendMail({
+      
       from: process.env.USER,
       to: contactEmail, 
       subject: `Nueva consulta de ${userEmail}:` + subject,
       text: text,
     })
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = sendMessageEmail;
