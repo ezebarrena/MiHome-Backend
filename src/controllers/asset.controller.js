@@ -180,11 +180,14 @@ class AssetController {
     async uploadAssetPic(req, res) {
       try {
 
+        console.log(req, 'requ');
         if (!req.files || !req.files.file) {
           return res.status(400).json({ msg: "No file uploaded." });
         }
-    
+  
+        
         const file = req.files.file;
+        console.log(file, 'file');
     
         await moveFileLocal(file);
         const cloudinaryResponse = await uploadToCloudinary(file);
