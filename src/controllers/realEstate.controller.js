@@ -120,6 +120,7 @@ class RealEstateController {
     }
   }
 
+
   //chequear esto
   async sendCode(req, res) {
     const email = req.body.email;
@@ -137,6 +138,26 @@ class RealEstateController {
         message: "Server error",
         status: 500,
       });
+
+    async getReviews(req, res){
+      
+      const reId = req.body.reId
+      try {
+        const reviews = await RealEstateService.getRealEstateReviews(reId)
+        console.log(reviews.reviews) 
+        return res.status(200).json({
+          message: "all the real estate reviews",
+          reviews: reviews.reviews,
+          status: 200,
+        })
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            method: "getReviews",
+            message: "Server error",
+            status: 500,
+        });
+      }
     }
   }
 
